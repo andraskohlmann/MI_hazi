@@ -3,8 +3,11 @@ package environment;
 public class CarState {
 	
 //	public static void main(String[] args) {
-//		CarState s = new CarState(5, 1);
+//		CarState s = new CarState(4.5, 0.6);
 //		System.out.println(s.getStateNum());
+//		CarState n = new CarState(s.getStateNum());
+//		System.out.println(n.position);
+//		System.out.println(n.velocity);
 //	}
 	
 	private static final double minPosition = 0;
@@ -15,11 +18,15 @@ public class CarState {
 	private static final double maxVelocity = 1;
 	//TODO
 	
-	private static final int positionResolution = 10;
-	private static final int velocityResolution = 10;
+	private static final int positionResolution = 11;
+	private static final int velocityResolution = 11;
 	
 	private double position;
 	private double velocity;
+	
+	CarState(int s) {
+		setStateNum(s);
+	}
 	
 	CarState(double p, double v) {
 		position = p;
@@ -40,7 +47,13 @@ public class CarState {
 	}
 	
 	void setStateNum(int num) {
+		int discreteVelocity = num % velocityResolution;
+		double normalVelocity = (double) discreteVelocity / (velocityResolution - 1);
+		velocity = minVelocity + normalVelocity * (maxVelocity - minVelocity);
 		
+		int discretePosition = num / velocityResolution;
+		double normalPosition = (double) discretePosition / (positionResolution - 1);
+		position = minPosition + normalPosition * (maxPosition - minPosition);
 	}
 
 	@Override

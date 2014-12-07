@@ -3,11 +3,11 @@ package environment;
 public class Result {
 	
 	private CarState state;
-	private double award;
+	private double reward;
 	
 	public Result(CarState s, double a) {
 		state = s;
-		award = a;
+		reward = a;
 	}
 	
 	public CarState getState() {
@@ -15,6 +15,6 @@ public class Result {
 	}
 	
 	public double getAward() {
-		return award;
+		return reward;
 	}
 }

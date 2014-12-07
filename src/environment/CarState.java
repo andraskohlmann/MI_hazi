@@ -33,6 +33,14 @@ public class CarState {
 		velocity = v;
 	}
 	
+	double getPosition() {
+		return 0;
+	}
+	
+	double getVelocity() {
+		return 0;
+	}
+	
 	int getStateNum() {
 		double normalPosition = (position - minPosition) / (maxPosition - minPosition);
 		int discretePosition = (int) (Math.round(normalPosition * (positionResolution - 1)));

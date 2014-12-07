@@ -3,7 +3,7 @@ package environment;
 public class CarState {
 	
 //	public static void main(String[] args) {
-//		CarState s = new CarState(4.5, 0.6);
+//		CarState s = new CarState(6.2, 1);
 //		System.out.println(s.getStateNum());
 //		CarState n = new CarState(s.getStateNum());
 //		System.out.println(n.position);
@@ -19,6 +19,10 @@ public class CarState {
 	
 	private static final int positionResolution = 11;
 	private static final int velocityResolution = 11;
+	
+	public static int maxState() {
+		return positionResolution * velocityResolution;
+	}
 	
 	private double position;
 	private double velocity;

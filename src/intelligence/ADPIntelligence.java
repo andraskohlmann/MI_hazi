@@ -6,13 +6,19 @@ import environment.Result;
 
 public class ADPIntelligence {
 
+	private static int kmax = 10;
+
 	private Activity[] pi;
 
-	private double[][][] T;
-	private double[] R;
+	private static double[][][] T = new double[CarState.maxState()][3][CarState
+			.maxState()];
+	private double[] R = new double[CarState.maxState()];
+	private static int[][] Nsa = new int[CarState.maxState()][3];
+	private static int[][][] Nsas = new int[CarState.maxState()][3][CarState
+			.maxState()];
+
+	
 	private double[] U;
-	private int[][] Nsa;
-	private int[][][] Nsas;
 
 	private CarState previousState;
 	private Activity previousActivity;
@@ -21,11 +27,7 @@ public class ADPIntelligence {
 			Activity startActivity) {
 		pi = p;
 
-		T = new double[CarState.maxState()][3][CarState.maxState()];
-		R = new double[CarState.maxState()];
 		U = new double[CarState.maxState()];
-		Nsa = new int[CarState.maxState()][3];
-		Nsas = new int[CarState.maxState()][3][CarState.maxState()];
 
 		previousActivity = startActivity;
 		previousState = startState;
@@ -34,7 +36,7 @@ public class ADPIntelligence {
 	public Activity move(Result result) {
 		int stateNum = result.getState().getStateNum();
 
-		if (U[stateNum] == 0) {
+		if (R[stateNum] == 0) {
 			U[stateNum] = result.getReward();
 			R[stateNum] = result.getReward();
 		}
@@ -49,12 +51,26 @@ public class ADPIntelligence {
 							.ordinal()];
 		}
 
-		// U = ...
+		for (int k = 0; k < kmax; k++) {
+			double[] Unext = new double[CarState.maxState()];
+			for (int i = 0; i < CarState.maxState(); i++) {
+				double tmp = 0;
+				for (int j = 0; j < CarState.maxState(); j++) {
+					tmp += T[i][pi[i].ordinal()][j] * U[j];
+				}
+				Unext[i] = R[i] + tmp;
+			}
+			U = Unext;
+		}
 
 		previousState = result.getState();
 		previousActivity = pi[stateNum];
 
 		return pi[stateNum];
+	}
+	
+	public Activity[] nextPi() {
+		return null;
 	}
 
 }

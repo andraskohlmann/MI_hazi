@@ -1,5 +1,7 @@
 package intelligence;
 
+import java.util.Random;
+
 import environment.Activity;
 import environment.CarState;
 import environment.Result;
@@ -67,6 +69,11 @@ public class ADPIntelligence {
 
 		return pi[stateNum];
 	}
+	
+	public static Activity int2Activity(int a) {
+		return a == 0 ? Activity.reverse : (a == 1 ? Activity.neutral
+				: Activity.forward);
+	}
 
 	public Activity[] nextPi() {
 		Activity[] nextPi = new Activity[CarState.maxState()];
@@ -89,11 +96,21 @@ public class ADPIntelligence {
 				}
 			}
 
-			nextPi[i] = a == 0 ? Activity.reverse : (a == 1 ? Activity.neutral
-					: Activity.forward);
+			nextPi[i] = int2Activity(a);
 		}
 
 		return nextPi;
+	}
+	
+	public static Activity[] startPi() {
+		Activity[] pi = new Activity[CarState.maxState()];
+		
+		Random r = new Random();
+		for (int i = 0; i < CarState.maxState(); i++) {
+			pi[i] = int2Activity(r.nextInt(3));
+		}
+		
+		return pi;
 	}
 
 }

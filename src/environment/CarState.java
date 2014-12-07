@@ -10,11 +10,11 @@ public class CarState {
 	// System.out.println(n.velocity);
 	// }
 
-	private static final double minPosition = 0;
-	private static final double maxPosition = 2 * Math.PI;
+	public static final double minPosition = 0;
+	public static final double maxPosition = 2 * Math.PI;
 
-	private static final double minVelocity = -1;
-	private static final double maxVelocity = 1;
+	public static final double minVelocity = -1;
+	public static final double maxVelocity = 1;
 	// TODO
 
 	private static final int positionResolution = 11;

@@ -19,8 +19,20 @@ public class Environment {
 
 	private CarState calculateNextState(CarState state_t, Activity a) {
 		double m = -Math.sin(state_t.getPosition());
-		double acc = Math.sin(Math.atan(m)) * gravity + (a.ordinal()-1) * accelerationRatio;
+		double acc = Math.sin(Math.atan(m)) * gravity + (a.ordinal() - 1)
+				* accelerationRatio;
 		double vel = state_t.getVelocity() + acc * deltaTime / 2;
-		return new CarState(state_t.getPosition() + vel * deltaTime, vel);
+		double pos = state_t.getPosition() + vel * deltaTime;
+		return saturate(new CarState(pos, vel));
+	}
+	
+	private CarState saturate(CarState stat) {
+		double pos = stat.getPosition();
+		pos = pos < CarState.minPosition ? CarState.minPosition : (pos > CarState.maxPosition ? CarState.maxPosition : pos);
+		
+		double vel = stat.getVelocity();
+		vel = vel < CarState.minVelocity ? CarState.minVelocity : (vel > CarState.maxVelocity ? CarState.maxVelocity : vel);
+		
+		return new CarState(pos, vel);
 	}
 }

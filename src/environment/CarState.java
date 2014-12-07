@@ -34,11 +34,11 @@ public class CarState {
 	}
 	
 	double getPosition() {
-		return 0;
+		return position;
 	}
 	
 	double getVelocity() {
-		return 0;
+		return velocity;
 	}
 	
 	int getStateNum() {

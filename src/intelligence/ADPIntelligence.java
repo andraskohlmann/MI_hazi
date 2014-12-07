@@ -17,7 +17,6 @@ public class ADPIntelligence {
 	private static int[][][] Nsas = new int[CarState.maxState()][3][CarState
 			.maxState()];
 
-	
 	private double[] U;
 
 	private CarState previousState;
@@ -68,9 +67,33 @@ public class ADPIntelligence {
 
 		return pi[stateNum];
 	}
-	
+
 	public Activity[] nextPi() {
-		return null;
+		Activity[] nextPi = new Activity[CarState.maxState()];
+
+		for (int i = 0; i < CarState.maxState(); i++) {
+			double[] tmp = new double[3];
+			for (int j = 0; j < 3; j++) {
+				tmp[j] = 0;
+				for (int k = 0; k < CarState.maxState(); k++) {
+					tmp[j] += T[i][j][k] * U[k];
+				}
+			}
+
+			double max = tmp[0];
+			int a = 0;
+			for (int j = 1; j < 3; j++) {
+				if (max < tmp[j]) {
+					max = tmp[j];
+					a = j;
+				}
+			}
+
+			nextPi[i] = a == 0 ? Activity.reverse : (a == 1 ? Activity.neutral
+					: Activity.forward);
+		}
+
+		return nextPi;
 	}
 
 }

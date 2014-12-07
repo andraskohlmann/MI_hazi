@@ -5,23 +5,56 @@ import environment.CarState;
 import environment.Result;
 
 public class ADPIntelligence {
-	
+
+	private Activity[] pi;
+
 	private double[][][] T;
 	private double[] R;
 	private double[] U;
-	private double[][] Nsa;
-	private double[][][] Nsas;
-	
-	private CarState prevoiusState;
-	private Activity prevoiusActivity;
-	
-	public ADPIntelligence() {
+	private int[][] Nsa;
+	private int[][][] Nsas;
+
+	private CarState previousState;
+	private Activity previousActivity;
+
+	public ADPIntelligence(Activity[] p, CarState startState,
+			Activity startActivity) {
+		pi = p;
+
 		T = new double[CarState.maxState()][3][CarState.maxState()];
 		R = new double[CarState.maxState()];
+		U = new double[CarState.maxState()];
+		Nsa = new int[CarState.maxState()][3];
+		Nsas = new int[CarState.maxState()][3][CarState.maxState()];
+
+		previousActivity = startActivity;
+		previousState = startState;
 	}
-	
-	Activity move(Result result) {
-		return Activity.neutral;
+
+	public Activity move(Result result) {
+		int stateNum = result.getState().getStateNum();
+
+		if (U[stateNum] == 0) {
+			U[stateNum] = result.getReward();
+			R[stateNum] = result.getReward();
+		}
+
+		Nsa[previousState.getStateNum()][previousActivity.ordinal()]++;
+		Nsas[previousState.getStateNum()][previousActivity.ordinal()][stateNum]++;
+
+		for (int i = 0; i < CarState.maxState(); i++) {
+			T[previousState.getStateNum()][previousActivity.ordinal()][i] = (double) Nsas[previousState
+					.getStateNum()][previousActivity.ordinal()][i]
+					/ Nsa[previousState.getStateNum()][previousActivity
+							.ordinal()];
+		}
+
+		// U = ...
+
+		previousState = result.getState();
+		previousActivity = pi[stateNum];
+
+		return pi[stateNum];
 	}
 
 }

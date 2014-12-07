@@ -12,7 +12,6 @@ public class CarState {
 	
 	private static final double minPosition = 0;
 	private static final double maxPosition = 2 * Math.PI;
-	private static final double winPosition = 1.75 * Math.PI;
 	
 	private static final double minVelocity = -1;
 	private static final double maxVelocity = 1;

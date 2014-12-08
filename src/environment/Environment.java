@@ -5,15 +5,16 @@ public class Environment {
 	private static final double winPosition = 1.75 * Math.PI;
 	private static final double winReward = 1;
 	private static final double constReward = -0.01;
+	private static final CarState winstat = new CarState(winPosition, 0);
 
-	private static final double gravity = 9.81;
-	private static final double deltaTime = 0.01;
-	private static final double accelerationRatio = 5;
+	private static final double gravity = 0.1;
+	private static final double deltaTime = 1;
+	private static final double accelerationRatio = 0.05;
 
 	public Result getResult(CarState state_t, Activity a) {
 		CarState state_tpp = calculateNextState(state_t, a);
-		double reward = state_tpp.getPosition() == winPosition ? winReward
-				: constReward;
+		double reward = Math.abs(state_tpp.getPosition()
+				- winstat.getPosition()) < 0.1 ? winReward : constReward;
 		return new Result(state_tpp, reward);
 	}
 
@@ -25,14 +26,23 @@ public class Environment {
 		double pos = state_t.getPosition() + vel * deltaTime;
 		return saturate(new CarState(pos, vel));
 	}
-	
+
 	private CarState saturate(CarState stat) {
-		double pos = stat.getPosition();
-		pos = pos < CarState.minPosition ? CarState.minPosition : (pos > CarState.maxPosition ? CarState.maxPosition : pos);
-		
 		double vel = stat.getVelocity();
-		vel = vel < CarState.minVelocity ? CarState.minVelocity : (vel > CarState.maxVelocity ? CarState.maxVelocity : vel);
-		
+		vel = vel < CarState.minVelocity ? CarState.minVelocity
+				: (vel > CarState.maxVelocity ? CarState.maxVelocity : vel);
+
+		double pos = stat.getPosition();
+		if (pos < CarState.minPosition) {
+			pos = CarState.minPosition;
+			vel *= -1;
+		} else if (pos > CarState.maxPosition) {
+			pos = CarState.maxPosition;
+			vel *= -1;
+		}
+		// pos = pos < CarState.minPosition ? CarState.minPosition : (pos >
+		// CarState.maxPosition ? CarState.maxPosition : pos);
+
 		return new CarState(pos, vel);
 	}
 }

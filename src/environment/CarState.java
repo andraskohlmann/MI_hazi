@@ -13,8 +13,8 @@ public class CarState {
 	public static final double minPosition = 0;
 	public static final double maxPosition = 2 * Math.PI;
 
-	public static final double minVelocity = -1;
-	public static final double maxVelocity = 1;
+	public static final double minVelocity = -0.5;
+	public static final double maxVelocity = 0.5;
 	// TODO
 
 	private static final int positionResolution = 11;

@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.Timer;
 
 import environment.Activity;
+import environment.CarState;
 import environment.Environment;
 
 public class Visualizer extends JFrame implements ActionListener {
@@ -15,13 +16,13 @@ public class Visualizer extends JFrame implements ActionListener {
 	private Timer timer;
 	private GraphicPanel gfx;
 	
-	Visualizer(Environment e, Activity[] pi) {
+	Visualizer(Environment e, Activity[] pi, CarState s) {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocation(100, 100);
 		setSize(1280, 720);
 		setTitle("Visualizer");
 		
-		gfx = new GraphicPanel(e, pi);
+		gfx = new GraphicPanel(e, pi, s);
 		add(gfx);
 	}
 	

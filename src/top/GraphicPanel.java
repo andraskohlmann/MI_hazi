@@ -25,14 +25,13 @@ public class GraphicPanel extends JPanel {
 	private int[] xs;
 	private int[] ys;
 
-	public GraphicPanel(Environment e, Activity[] p) {
+	public GraphicPanel(Environment e, Activity[] p, CarState s) {
 		environment = e;
 		pi = p;
 
 //		stepCount = 0;
 
-		result = environment.getResult(new CarState(3 * Math.PI / 4, 0),
-				Activity.neutral);
+		result = environment.getResult(s, Activity.neutral);
 
 		// state = result.getState();
 		

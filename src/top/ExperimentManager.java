@@ -52,11 +52,12 @@ public class ExperimentManager {
 		}
 		pw.close();
 		
-		Visualizer v = new Visualizer(environment, pi);
+		CarState startState = new CarState(3 * Math.PI / 4, 0);
+		
+		Visualizer v = new Visualizer(environment, pi, startState);
 		v.start();
 		
-		Result result = environment.getResult(new CarState(3 * Math.PI / 4,
-				0), Activity.neutral);
+		Result result = environment.getResult(startState, Activity.neutral);
 		
 		CarState[] stats = new CarState[1001];
 		//double[] poss = new double[1001];

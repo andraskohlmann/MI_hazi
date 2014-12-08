@@ -40,7 +40,7 @@ public class ExperimentManager {
 				}
 			}
 			
-			if (i < 1000 || j > 100) {
+			if (i < maxIteration || j > 100) {
 				System.out.println(" kijutottam a gecibe " + i + " lépés alatt, szal akár be is kaphatod a faszom.");
 				exitnum++;
 				if (exitnum >= 5 || j > 100) {

@@ -3,7 +3,7 @@ package top;
 import intelligence.ADPIntelligence;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 
 import environment.Activity;
@@ -15,7 +15,9 @@ public class ExperimentManager {
 
 	public static int maxIteration = 1000;
 
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws IOException {
+		MathLabGraph.connect();
+		
 		Environment environment = new Environment();
 		Activity[] pi = null;
 		
@@ -56,6 +58,8 @@ public class ExperimentManager {
 
 			pi = ai.nextPi();
 		}
+		
+		MathLabGraph.disconnect();
 		
 		PrintWriter pw = new PrintWriter(new File("fasz2.txt"));
 		for (int i = 0; i < CarState.maxState(); i++) {

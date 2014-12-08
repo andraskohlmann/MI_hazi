@@ -55,15 +55,32 @@ public class MathLabGraph {
 	}
 	
 	public static void drawData(double[] data) {
-		double[][] data2D = new double[1][];
-		data2D[0] = data;
+		StringBuilder sb = new StringBuilder();
+		sb.append("data");
+		sb.append(datanum);
+		sb.append(" = [");
+		for (int i = 0; i < data.length; i++) {
+			sb.append(data[i]);
+			if (i < data.length - 1) {
+				sb.append(", ");
+			}
+		}
+		sb.append("];\nplot(data");
+		sb.append(datanum);
+		sb.append(");");
 		
+		
+//		double[][] data2D = new double[data.length][1];
+//		for (int i = 0; i < data.length; i++) {
+//			data2D[i][0] = data[i];
+//		}	
 		
 		try {
 			// Send the array to MATLAB
-			processor.setNumericArray("data" + datanum, new MatlabNumericArray(data2D, null));
+//			processor.setNumericArray("data" + datanum + "x", new MatlabNumericArray(data2D, null));
 			
-			proxy.eval("plot(data" + datanum + ")");
+			//proxy.eval("plot(data" + datanum + "x)");
+			proxy.eval(sb.toString());
 		} catch (MatlabInvocationException e) {
 			System.err.println(e.getMessage());
 		}

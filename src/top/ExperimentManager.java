@@ -33,6 +33,7 @@ public class ExperimentManager {
 				result = environment.getResult(result.getState(), act);
 				
 				if (result.getReward() == 1) {
+					System.out.println("épp jutok ki ezen a szenthelyen: " + result.getState().getPosition());
 					break;
 				}
 			}
@@ -44,7 +45,10 @@ public class ExperimentManager {
 		
 		PrintWriter pw = new PrintWriter(new File("fasz2.txt"));
 		for (int i = 0; i < CarState.maxState(); i++) {
-			pw.println(pi[i]);
+			pw.print(pi[i] + "\t");
+			if((i+1) % CarState.velocityResolution == 0) {
+				pw.println();
+			}
 		}
 		pw.close();
 	}

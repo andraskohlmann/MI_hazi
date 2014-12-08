@@ -9,12 +9,20 @@ public class Environment {
 
 	private static final double gravity = 0.1;
 	private static final double deltaTime = 1;
-	private static final double accelerationRatio = 0.05;
+	private static final double accelerationRatio = 0.02;
+	
+	public Environment() {
+		System.out.println(winstat.getStateNum() / CarState.velocityResolution);
+	}
 
 	public Result getResult(CarState state_t, Activity a) {
 		CarState state_tpp = calculateNextState(state_t, a);
-		double reward = Math.abs(state_tpp.getPosition()
-				- winstat.getPosition()) < 0.1 ? winReward : constReward;
+		double reward = constReward;
+		if (state_tpp.getStateNum() / CarState.velocityResolution == winstat.getStateNum() / CarState.velocityResolution) {
+			reward = winReward;
+		}
+		//double reward = Math.abs(state_tpp.getPosition()
+				//- winstat.getPosition()) < 0.2 ? winReward : constReward;
 		return new Result(state_tpp, reward);
 	}
 

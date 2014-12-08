@@ -18,7 +18,7 @@ public class Environment {
 	public Result getResult(CarState state_t, Activity a) {
 		CarState state_tpp = calculateNextState(state_t, a);
 		double reward = constReward;
-		if (Math.abs(state_tpp.getPosition() - winstat.getPosition()) < 0.1 && Math.abs(state_tpp.getVelocity() - winstat.getVelocity()) < 0.1) {
+		if (Math.abs(state_tpp.getPosition() - winstat.getPosition()) < 0.1 && Math.abs(state_tpp.getVelocity() - winstat.getVelocity()) < 0.05) {
 			reward = winReward;
 		}
 		//double reward = Math.abs(state_tpp.getPosition()
@@ -46,7 +46,7 @@ public class Environment {
 			vel *= -0.2;
 		} else if (pos > CarState.maxPosition) {
 			pos = CarState.maxPosition;
-			vel *= -0.2;
+			vel *= -0.8;
 		}
 		// pos = pos < CarState.minPosition ? CarState.minPosition : (pos >
 		// CarState.maxPosition ? CarState.maxPosition : pos);

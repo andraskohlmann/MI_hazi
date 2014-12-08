@@ -40,6 +40,9 @@ public class ExperimentManager {
 				}
 			}
 			
+			double[][] Us = ai.getUs();
+			//fingás(Us);
+			
 			if (i < maxIteration || j > 100) {
 				System.out.println(" kijutottam a gecibe " + i + " lépés alatt, szal akár be is kaphatod a faszom.");
 				exitnum++;

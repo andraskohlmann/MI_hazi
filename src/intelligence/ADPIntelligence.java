@@ -1,15 +1,15 @@
 package intelligence;
 
-import java.text.DecimalFormat;
 import java.util.Random;
 
+import top.ExperimentManager;
 import environment.Activity;
 import environment.CarState;
 import environment.Result;
 
 public class ADPIntelligence {
 
-	private static int kmax = 30;
+	private static int kmax = 20;
 
 	private Activity[] pi;
 
@@ -22,6 +22,8 @@ public class ADPIntelligence {
 			.maxState()];
 
 	private double[] U;
+	private double[][] Us;
+	private int unum;
 
 	private CarState previousState;
 	private Activity previousActivity;
@@ -31,6 +33,8 @@ public class ADPIntelligence {
 		pi = p;
 
 		U = new double[CarState.maxState()];
+		Us = new double[ExperimentManager.maxIteration][CarState.maxState()];
+		unum = 0;
 		Nsanow = new int[CarState.maxState()][3];
 
 		previousActivity = startActivity;
@@ -68,10 +72,16 @@ public class ADPIntelligence {
 			U = Unext;
 		}
 
+		Us[unum++] = U;
+
 		previousState = result.getState();
 		previousActivity = pi[stateNum];
 
 		return pi[stateNum];
+	}
+	
+	public double[][] getUs() {
+		return Us;
 	}
 	
 	public static Activity int2Activity(int a) {

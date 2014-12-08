@@ -20,6 +20,7 @@ public class ExperimentManager {
 		
 		Environment environment = new Environment();
 		Activity[] pi = null;
+		Activity[] lastGoodPi = null;
 		
 		CarState startState = new CarState(3 * Math.PI / 4, 0);
 		
@@ -47,8 +48,11 @@ public class ExperimentManager {
 			Ul[j] = ai.getU();
 			
 			if (i < maxIteration || j > 100) {
-				System.out.println(" kijutottam a gecibe " + i + " lépés alatt, szal akár be is kaphatod a faszom.");
-				exitnum++;
+				if (i < maxIteration) {
+					System.out.println(" kijutottam a gecibe " + i + " lépés alatt, szal akár be is kaphatod a faszom.");
+					lastGoodPi = pi;
+					exitnum++;
+				}
 				if (exitnum >= 5 || j > 100) {
 					MathLabGraph.drawUs(Ul, j);
 					break;
@@ -72,7 +76,7 @@ public class ExperimentManager {
 		}
 		pw.close();
 		
-		Visualizer v = new Visualizer(environment, pi, startState);
+		Visualizer v = new Visualizer(environment, lastGoodPi, startState);
 		v.start();
 		
 		Result result = environment.getResult(startState, Activity.neutral);
@@ -85,7 +89,7 @@ public class ExperimentManager {
 		//vels[0] = result.getState().getVelocity();
 		int i;
 		for (i = 0; i < 1000; i++) {
-			result = environment.getResult(result.getState(), pi[result.getState().getStateNum()]);
+			result = environment.getResult(result.getState(), lastGoodPi[result.getState().getStateNum()]);
 			stats[i + 1] = result.getState();
 			//poss[i + 1] = result.getState().getPosition();
 			//vels[i + 1] = result.getState().getVelocity();

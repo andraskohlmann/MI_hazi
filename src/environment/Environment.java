@@ -46,7 +46,7 @@ public class Environment {
 			vel *= -0.2;
 		} else if (pos > CarState.maxPosition) {
 			pos = CarState.maxPosition;
-			vel *= -0.8;
+			vel *= -0.2;
 		}
 		// pos = pos < CarState.minPosition ? CarState.minPosition : (pos >
 		// CarState.maxPosition ? CarState.maxPosition : pos);

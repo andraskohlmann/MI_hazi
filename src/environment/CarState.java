@@ -17,7 +17,7 @@ public class CarState {
 	public static final double maxVelocity = 0.3;
 	// TODO
 
-	public static final int positionResolution = 21;
+	public static final int positionResolution = 11;
 	public static final int velocityResolution = 11;
 
 	public static int maxState() {

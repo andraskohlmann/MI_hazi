@@ -9,7 +9,7 @@ import environment.Result;
 
 public class ADPIntelligence {
 
-	private static int kmax = 20;
+	private static int kmax = 50;
 
 	private Activity[] pi;
 
@@ -23,6 +23,7 @@ public class ADPIntelligence {
 
 	private double[] U;
 	private double[][] Us;
+	private double[][] Uk;
 	private int unum;
 
 	private CarState previousState;
@@ -34,6 +35,7 @@ public class ADPIntelligence {
 
 		U = new double[CarState.maxState()];
 		Us = new double[ExperimentManager.maxIteration][CarState.maxState()];
+		Uk = new double[kmax + 1][CarState.maxState()];
 		unum = 0;
 		Nsanow = new int[CarState.maxState()][3];
 
@@ -59,7 +61,7 @@ public class ADPIntelligence {
 					/ Nsa[previousState.getStateNum()][previousActivity
 							.ordinal()];
 		}
-
+		
 		for (int k = 0; k < kmax; k++) {
 			double[] Unext = new double[CarState.maxState()];
 			for (int i = 0; i < CarState.maxState(); i++) {
@@ -69,9 +71,12 @@ public class ADPIntelligence {
 				}
 				Unext[i] = R[i] + tmp;
 			}
+			Uk[k] = U;
 			U = Unext;
 		}
 
+		Uk[kmax] = U;
+		
 		Us[unum++] = U;
 
 		previousState = result.getState();
@@ -82,6 +87,14 @@ public class ADPIntelligence {
 	
 	public double[][] getUs() {
 		return Us;
+	}
+	
+	public double[][] getUk() {
+		return Uk;
+	}
+	
+	public double[] getU() {
+		return U;
 	}
 	
 	public static Activity int2Activity(int a) {

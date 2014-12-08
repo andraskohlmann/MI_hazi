@@ -1,5 +1,6 @@
 package top;
 
+import environment.CarState;
 import matlabcontrol.MatlabConnectionException;
 import matlabcontrol.MatlabInvocationException;
 import matlabcontrol.MatlabProxy;
@@ -46,6 +47,7 @@ public class MathLabGraph {
 	}
 	
 	public static void nextFigure() {
+//		System.out.println("mivaan??");
 		figurenum++;
 		try {
 			proxy.eval("figure(" + figurenum + ")");
@@ -54,7 +56,7 @@ public class MathLabGraph {
 		}
 	}
 	
-	public static void drawData(double[] data) {
+	public static int drawData(double[] data) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("data");
 		sb.append(datanum);
@@ -67,7 +69,7 @@ public class MathLabGraph {
 		}
 		sb.append("];\nplot(data");
 		sb.append(datanum);
-		sb.append(");");
+		sb.append("), hold on");
 		
 		
 //		double[][] data2D = new double[data.length][1];
@@ -85,7 +87,49 @@ public class MathLabGraph {
 			System.err.println(e.getMessage());
 		}
 		
-		datanum++;
+		return datanum++;
+	}
+	
+	public static void drawUs(double[][] Us) {
+		drawUs(Us, -1);
+	}
+	
+	public static void drawUs(double[][] Us, int n) {
+		int num = n == -1 ? Us.length : n;
+		for (int i = 0; i < CarState.maxState(); i++) {	
+			double[] values = new double[num];
+			for (int j = 0; j < num; j++) {
+				values[j] = Us[j][i];
+			}
+			
+//			if (i % CarState.velocityResolution == 0) {
+//				num = drawData(values);
+//			}
+//			else {
+				drawData(values);
+//			}
+			
+			if ((i + 1) % CarState.velocityResolution == 0) {
+//				StringBuilder sb = new StringBuilder();
+//				sb.append("plot(");
+//				for (int k = 0; k < CarState.velocityResolution; k++) {
+//					sb.append("data");
+//					sb.append(num + k);
+//					if (k != CarState.velocityResolution - 1) {
+//						sb.append(", ");
+//					}
+//				}
+//				sb.append(");");
+//				System.out.println(sb.toString());
+//				try {
+//					proxy.eval(sb.toString());
+//				} catch (MatlabInvocationException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+				nextFigure();
+			}
+		}
 	}
 
 }

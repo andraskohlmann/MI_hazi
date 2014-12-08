@@ -24,6 +24,8 @@ public class ExperimentManager {
 		CarState startState = new CarState(3 * Math.PI / 4, 0);
 		
 		int exitnum = 0;
+		
+		double[][] Ul = new double[103][CarState.maxState()];
 
 		for (int j = 0;; j++) {
 			System.out.print("nyalása ama pinának hessteg " + j);
@@ -42,13 +44,13 @@ public class ExperimentManager {
 				}
 			}
 			
-			double[][] Us = ai.getUs();
-			//fingás(Us);
+			Ul[j] = ai.getU();
 			
 			if (i < maxIteration || j > 100) {
 				System.out.println(" kijutottam a gecibe " + i + " lépés alatt, szal akár be is kaphatod a faszom.");
 				exitnum++;
 				if (exitnum >= 5 || j > 100) {
+					MathLabGraph.drawUs(Ul, j);
 					break;
 				}
 			}

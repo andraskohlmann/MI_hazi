@@ -33,14 +33,14 @@ public class ExperimentManager {
 				result = environment.getResult(result.getState(), act);
 				
 				if (result.getReward() == 1) {
-					System.out.println("épp jutok ki ezen a szenthelyen: " + result.getState().getPosition());
+					//System.out.println("épp jutok ki ezen a szenthelyen: " + result.getState().getPosition());
 					break;
 				}
 			}
 
 			pi = ai.nextPi();
 			
-			System.out.println("kijutottam a gecibe " + i + " lépés alatt, szal akár be is kaphatod a faszom.");
+			//System.out.println("kijutottam a gecibe " + i + " lépés alatt, szal akár be is kaphatod a faszom.");
 		}
 		
 		PrintWriter pw = new PrintWriter(new File("fasz2.txt"));
@@ -51,6 +51,40 @@ public class ExperimentManager {
 			}
 		}
 		pw.close();
+		
+		Visualizer v = new Visualizer(environment, pi);
+		v.start();
+		
+		Result result = environment.getResult(new CarState(3 * Math.PI / 4,
+				0), Activity.neutral);
+		
+		CarState[] stats = new CarState[1001];
+		//double[] poss = new double[1001];
+		//double[] vels = new double[1001];
+		stats[0] = result.getState();
+		//poss[0] = result.getState().getPosition();
+		//vels[0] = result.getState().getVelocity();
+		int i;
+		for (i = 0; i < 1000; i++) {
+			result = environment.getResult(result.getState(), pi[result.getState().getStateNum()]);
+			stats[i + 1] = result.getState();
+			//poss[i + 1] = result.getState().getPosition();
+			//vels[i + 1] = result.getState().getVelocity();
+			
+			if (result.getReward() == 1) {
+				break;
+			}
+		}
+		
+		if (i < 1000) {
+			System.out.println("kabbe " + i);
+//			for (int j = 0; j <= i + 1; j++) {
+//				System.out.println("itt is vótam: " + stats[j].getPosition() + " és ennyivel mentem: " + stats[j].getVelocity() + "és ezt míveltem: " + pi[stats[j].getStateNum()]);
+//			}
+		}
+		else {
+			System.out.println("retardált maradtam.");
+		}
 	}
 
 }

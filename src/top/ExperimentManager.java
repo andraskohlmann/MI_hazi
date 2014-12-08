@@ -18,14 +18,16 @@ public class ExperimentManager {
 	public static void main(String[] args) throws FileNotFoundException {
 		Environment environment = new Environment();
 		Activity[] pi = null;
+		
+		CarState startState = new CarState(3 * Math.PI / 4, 0);
+		
+		int exitnum = 0;
 
-		for (int j = 0; j < 50; j++) {
-			System.out.println("nyalása ama pinának hessteg " + j);
+		for (int j = 0;; j++) {
+			System.out.print("nyalása ama pinának hessteg " + j);
 			ADPIntelligence ai = new ADPIntelligence(
-					pi == null ? ADPIntelligence.startPi() : pi, new CarState(
-							3 * Math.PI / 4, 0), Activity.neutral);
-			Result result = environment.getResult(new CarState(3 * Math.PI / 4,
-					0), Activity.neutral);
+					pi == null ? ADPIntelligence.startPi() : pi, startState, Activity.neutral);
+			Result result = environment.getResult(startState, Activity.neutral);
 
 			int i = 0;
 			for (i = 0; i < maxIteration; i++) {
@@ -37,10 +39,19 @@ public class ExperimentManager {
 					break;
 				}
 			}
+			
+			if (i < 1000 || j > 100) {
+				System.out.println(" kijutottam a gecibe " + i + " lépés alatt, szal akár be is kaphatod a faszom.");
+				exitnum++;
+				if (exitnum >= 5 || j > 100) {
+					break;
+				}
+			}
+			else {
+				System.out.println();
+			}
 
 			pi = ai.nextPi();
-			
-			//System.out.println("kijutottam a gecibe " + i + " lépés alatt, szal akár be is kaphatod a faszom.");
 		}
 		
 		PrintWriter pw = new PrintWriter(new File("fasz2.txt"));
@@ -51,8 +62,6 @@ public class ExperimentManager {
 			}
 		}
 		pw.close();
-		
-		CarState startState = new CarState(3 * Math.PI / 4, 0);
 		
 		Visualizer v = new Visualizer(environment, pi, startState);
 		v.start();

@@ -61,13 +61,18 @@ public class GraphicPanel extends JPanel {
 		double carx = result.getState().getPosition();
 		g.fillRect(xCoord(carx), yCoord(carx), 10, 5);
 		g.setColor(new Color(255, 0, 0));
-		g.drawLine(xCoord(carx), yCoord(carx), xCoord(carx) + (pi[result.getState().getStateNum()].ordinal() - 1) * 10, yCoord(carx));
+		g.drawLine(xCoord(carx) + 5, yCoord(carx), xCoord(carx) + 5 + (pi[result.getState().getStateNum()].ordinal() - 1) * 15, yCoord(carx));
+		g.drawString(Double.toString(result.getState().getVelocity()), 100, 100);
 	}
 	
 	public double step() {
 		result = environment.getResult(result.getState(), pi[result.getState().getStateNum()]);
 		
 		return result.getReward();
+	}
+	
+	public void setResult(CarState s) {
+		result =  environment.getResult(s, Activity.neutral);
 	}
 
 }

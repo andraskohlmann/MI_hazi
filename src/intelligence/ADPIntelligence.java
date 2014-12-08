@@ -9,7 +9,7 @@ import environment.Result;
 
 public class ADPIntelligence {
 
-	private static int kmax = 10;
+	private static int kmax = 30;
 
 	private Activity[] pi;
 

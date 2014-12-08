@@ -24,7 +24,7 @@ public class Visualizer extends JFrame implements ActionListener, MouseListener 
 	Visualizer(Environment e, Activity[] pi, CarState s) {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocation(100, 100);
-		setSize(1280, 720);
+		setSize(1260, 720);
 		setTitle("Experiment Visualizer");
 		setResizable(false);
 		

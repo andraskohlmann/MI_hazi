@@ -1,7 +1,9 @@
 package top;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
@@ -45,7 +47,7 @@ public class GraphicPanel extends JPanel {
 	}
 
 	private static int xCoord(double x) {
-		return (int) (x * 200);
+		return (int) (x * 200) + 2;
 	}
 
 	private static int yCoord(double x) {
@@ -56,13 +58,17 @@ public class GraphicPanel extends JPanel {
 	protected void paintComponent(Graphics g) {
 		g.clearRect(0, 0, 1280, 720);
 		
-		g.drawPolyline(xs, ys, resolution);
+		Graphics2D g2d = (Graphics2D) g;
+		
+		BasicStroke bs = new BasicStroke(2);
+		g2d.setStroke(bs);
+		g2d.drawPolyline(xs, ys, resolution);
 
 		double carx = result.getState().getPosition();
-		g.fillRect(xCoord(carx), yCoord(carx), 10, 5);
-		g.setColor(new Color(255, 0, 0));
-		g.drawLine(xCoord(carx) + 5, yCoord(carx), xCoord(carx) + 5 + (pi[result.getState().getStateNum()].ordinal() - 1) * 15, yCoord(carx));
-		g.drawString(Double.toString(result.getState().getVelocity()), 100, 100);
+		g2d.fillRect(xCoord(carx) - 10, yCoord(carx) - 10, 20, 10);
+		g2d.setColor(new Color(255, 0, 0));
+		g2d.drawLine(xCoord(carx), yCoord(carx) - 10, xCoord(carx) + (pi[result.getState().getStateNum()].ordinal() - 1) * 20, yCoord(carx) - 10);
+		g2d.drawString(Double.toString(result.getState().getVelocity()), 100, 100);
 	}
 	
 	public double step() {

@@ -67,9 +67,9 @@ public class MathLabGraph {
 				sb.append(", ");
 			}
 		}
-		sb.append("];\nplot(data");
-		sb.append(datanum);
-		sb.append("), hold on");
+		sb.append("];");// \nplot(data");
+//		sb.append(datanum);
+//		sb.append("), hold on");
 		
 		
 //		double[][] data2D = new double[data.length][1];
@@ -95,34 +95,43 @@ public class MathLabGraph {
 	}
 	
 	public static void drawUs(double[][] Us, int n) {
-		int num = n == -1 ? Us.length : n;
+		int length = n == -1 ? Us.length : n;
+		int num = 0;
 		for (int i = 0; i < CarState.maxState(); i++) {	
-			double[] values = new double[num];
-			for (int j = 0; j < num; j++) {
+			double[] values = new double[length];
+			for (int j = 0; j < length; j++) {
 				values[j] = Us[j][i];
 			}
 			
-//			if (i % CarState.velocityResolution == 0) {
-//				num = drawData(values);
-//			}
-//			else {
+			if (i % CarState.velocityResolution == 0) {
+				num = drawData(values);
+			}
+			else {
 				drawData(values);
-//			}
+			}
 			
 			if ((i + 1) % CarState.velocityResolution == 0) {
-//				StringBuilder sb = new StringBuilder();
-//				sb.append("plot(");
-//				for (int k = 0; k < CarState.velocityResolution; k++) {
-//					sb.append("data");
-//					sb.append(num + k);
-//					if (k != CarState.velocityResolution - 1) {
-//						sb.append(", ");
-//					}
-//				}
-//				sb.append(");");
+				StringBuilder sb = new StringBuilder();
+				sb.append("plot(");
+				for (int k = 0; k < CarState.velocityResolution; k++) {
+					sb.append("1:1:");
+					sb.append(length);
+					sb.append(", data");
+					sb.append(num + k);
+					if (k != CarState.velocityResolution - 1) {
+						sb.append(", ");
+					}
+				}
+				sb.append(");");
 //				System.out.println(sb.toString());
+				try {
+					proxy.eval(sb.toString());
+				} catch (MatlabInvocationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 //				try {
-//					proxy.eval(sb.toString());
+//					proxy.eval("hold off");
 //				} catch (MatlabInvocationException e) {
 //					// TODO Auto-generated catch block
 //					e.printStackTrace();

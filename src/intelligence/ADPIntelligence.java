@@ -21,8 +21,8 @@ public class ADPIntelligence {
 	private static int[][][] Nsas = new int[CarState.maxState()][3][CarState
 			.maxState()];
 
-	private static double[] U = new double[CarState.maxState()];
-	//private double[] U;
+	//private static double[] U = new double[CarState.maxState()];
+	private double[] U;
 	private double[][] Us;
 	private double[][] Uk;
 	private int unum;
@@ -34,7 +34,7 @@ public class ADPIntelligence {
 			Activity startActivity) {
 		pi = p;
 
-		//U = new double[CarState.maxState()];
+		U = new double[CarState.maxState()];
 		Us = new double[ExperimentManager.maxIteration][CarState.maxState()];
 		Uk = new double[kmax + 1][CarState.maxState()];
 		unum = 0;

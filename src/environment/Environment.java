@@ -18,7 +18,7 @@ public class Environment {
 	public Result getResult(CarState state_t, Activity a) {
 		CarState state_tpp = calculateNextState(state_t, a);
 		double reward = constReward;
-		if (Math.abs(state_tpp.getPosition() - winstat.getPosition()) < 0.1 && Math.abs(state_tpp.getVelocity() - winstat.getVelocity()) < 0.05) {
+		if (Math.abs(state_tpp.getPosition() - winstat.getPosition()) < 0.1 /*&& Math.abs(state_tpp.getVelocity() - winstat.getVelocity()) < 0.06*/) {
 			reward = winReward;
 		}
 		//double reward = Math.abs(state_tpp.getPosition()

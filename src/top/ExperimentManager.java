@@ -23,7 +23,7 @@ public class ExperimentManager {
 		v.setVisible(true);
 	}
 
-	public static Activity[] experiment() {
+	public static Activity[] experiment(Visualizer v) {
 		Activity[] pi = null;
 		Activity[] lastGoodPi = null;
 
@@ -46,8 +46,8 @@ public class ExperimentManager {
 					break;
 				}
 			}
-
-			// Ul[j] = ai.getU();
+			
+			v.setPercent((double) j / 100);
 
 			if (i < maxIteration || j > 1000) {
 				if (i < maxIteration) {

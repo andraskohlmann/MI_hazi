@@ -12,7 +12,7 @@ public class WorkerThread extends Thread {
 
 	@Override
 	public void run() {
-		Activity[] pi = ExperimentManager.experiment();
+		Activity[] pi = ExperimentManager.experiment(vis);
 		vis.start(pi);
 	}
 

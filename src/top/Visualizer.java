@@ -27,6 +27,7 @@ public class Visualizer extends JFrame implements ActionListener,
 	private CarState start;
 
 	private JPanel panel;
+	private FrontPanel front;
 	private CardLayout layout;
 
 	private boolean started;
@@ -51,7 +52,8 @@ public class Visualizer extends JFrame implements ActionListener,
 		gfx = new GraphicPanel(e, s);
 		start = s;
 
-		panel.add(new FrontPanel(this), "front");
+		front = new FrontPanel(this);
+		panel.add(front, "front");
 		panel.add(gfx, "show");
 
 		add(panel);
@@ -68,6 +70,10 @@ public class Visualizer extends JFrame implements ActionListener,
 
 		layout.show(panel, "show");
 		timer.start();
+	}
+	
+	public void setPercent(double p) {
+		front.setPercent(p);
 	}
 
 	@Override

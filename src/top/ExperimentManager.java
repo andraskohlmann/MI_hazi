@@ -34,7 +34,6 @@ public class ExperimentManager {
 		int exitnum = 0;
 		
 		for (int j = 0;; j++) {
-			System.out.print("nyalása ama pinának hessteg " + j);
 			ADPIntelligence ai = new ADPIntelligence(
 					pi == null ? ADPIntelligence.startPi() : pi, startState, Activity.neutral);
 			Result result = environment.getResult(startState, Activity.neutral);
@@ -45,7 +44,6 @@ public class ExperimentManager {
 				result = environment.getResult(result.getState(), act);
 				
 				if (result.getReward() == 1) {
-					//System.out.println("épp jutok ki ezen a szenthelyen: " + result.getState().getPosition());
 					break;
 				}
 			}
@@ -54,7 +52,6 @@ public class ExperimentManager {
 			
 			if (i < maxIteration || j > 1000) {
 				if (i < maxIteration) {
-					System.out.println(" kijutottam a gecibe " + i + " lépés alatt, szal akár be is kaphatod a faszom.");
 					lastGoodPi = pi;
 					exitnum++;
 				}
@@ -62,9 +59,6 @@ public class ExperimentManager {
 					MathLabGraph.drawUs(ai.getUs(), i);
 					break;
 				}
-			}
-			else {
-				System.out.println();
 			}
 
 			pi = ai.nextPi();

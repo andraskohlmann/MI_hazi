@@ -29,9 +29,8 @@ public class GraphicPanel extends JPanel {
 	private int[] xs;
 	private int[] ys;
 
-	public GraphicPanel(Environment e, Activity[] p, CarState s) {
+	public GraphicPanel(Environment e, CarState s) {
 		environment = e;
-		pi = p;
 
 		stepCount = 0;
 		isStopped = false;
@@ -85,6 +84,10 @@ public class GraphicPanel extends JPanel {
 		stepCount++;
 		
 		return result.getReward();
+	}
+	
+	public void setPi(Activity[] p) {
+		pi = p;
 	}
 	
 	public void setResult(CarState s) {

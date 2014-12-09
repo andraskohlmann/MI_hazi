@@ -21,6 +21,8 @@ public class ExperimentManager {
 	public static void main(String[] args) throws IOException {
 		MathLabGraph.connect();
 		
+		Visualizer v = new Visualizer(environment, startState);
+		
 //		Activity[] pi = null;
 //		Activity[] lastGoodPi = null;
 //		
@@ -67,8 +69,6 @@ public class ExperimentManager {
 //			pi = ai.nextPi();
 //		}
 		
-		Activity[] lastGoodPi = experiment();
-		
 		MathLabGraph.disconnect();
 		
 //		PrintWriter pw = new PrintWriter(new File("fasz2.txt"));
@@ -80,8 +80,6 @@ public class ExperimentManager {
 //		}
 //		pw.close();
 //		
-		Visualizer v = new Visualizer(environment, lastGoodPi, startState);
-		v.start();
 		
 //		Result result = environment.getResult(startState, Activity.neutral);
 //		

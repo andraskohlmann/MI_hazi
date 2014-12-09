@@ -27,7 +27,7 @@ public class Visualizer extends JFrame implements ActionListener, MouseListener 
 	private JPanel panel;
 	private CardLayout layout;
 	
-	Visualizer(Environment e, Activity[] pi, CarState s) {
+	Visualizer(Environment e, CarState s) {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocation(100, 100);
 		setSize(1260, 720);
@@ -41,37 +41,33 @@ public class Visualizer extends JFrame implements ActionListener, MouseListener 
 		layout = new CardLayout();
 		panel.setLayout(layout);
 		
-		gfx = new GraphicPanel(e, pi, s);
+		gfx = new GraphicPanel(e, s);
 		start = s;
 		
-		JButton jb = new JButton("Gomb");
-		jb.setActionCommand("bla");
-		jb.addActionListener(this);
-		
-		panel.add(jb, "button");
+		panel.add(new FrontPanel(this), "front");
 		panel.add(gfx, "show");
 		
 		add(panel);
 		
-		layout.show(panel, "button");
+		layout.show(panel, "front");
 		
 		stepCount = 0;
+		
+		setVisible(true);
 	}
 	
-	public void start() {
-		setVisible(true);
-		
+	public void start(Activity[] p) {
 		timer = new Timer(50, this);
-		//timer.start();
+		
+		gfx.setPi(p);
+		
+		layout.show(panel, "show");
+		timer.start();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		if (arg0.getActionCommand() != null) {
-			layout.show(panel, "show");
-			timer.start();
-		}
-		else {
+		if(arg0.getActionCommand() == null) {
 			stepCount++;
 			if (gfx.step() == 1 || stepCount > 1000) {
 				timer.stop();
@@ -79,7 +75,10 @@ public class Visualizer extends JFrame implements ActionListener, MouseListener 
 				gfx.setStopped();
 			}
 			
-			gfx.repaint();
+			repaint();
+		}
+		else if (arg0.getActionCommand().equals("start")) {
+			start(ExperimentManager.experiment());
 		}
 	}
 

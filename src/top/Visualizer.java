@@ -76,6 +76,7 @@ public class Visualizer extends JFrame implements ActionListener, MouseListener 
 			if (gfx.step() == 1 || stepCount > 1000) {
 				timer.stop();
 				timer = null;
+				gfx.setStopped();
 			}
 			
 			gfx.repaint();
@@ -94,29 +95,19 @@ public class Visualizer extends JFrame implements ActionListener, MouseListener 
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void mouseEntered(MouseEvent arg0) {	
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 	
-	
-
 }

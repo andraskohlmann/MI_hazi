@@ -21,8 +21,10 @@ public class GraphicPanel extends JPanel {
 	private Environment environment;
 	// private CarState state;
 	private Result result;
-	//private int stepCount;
+	private int stepCount;
 	private Activity[] pi;
+	
+	private boolean isStopped;
 	
 	private int[] xs;
 	private int[] ys;
@@ -31,7 +33,8 @@ public class GraphicPanel extends JPanel {
 		environment = e;
 		pi = p;
 
-//		stepCount = 0;
+		stepCount = 0;
+		isStopped = false;
 
 		result = environment.getResult(s, Activity.neutral);
 
@@ -56,7 +59,7 @@ public class GraphicPanel extends JPanel {
 
 	@Override
 	protected void paintComponent(Graphics g) {
-		g.clearRect(0, 0, 1280, 720);
+		g.clearRect(0, 0, 1260, 720);
 		
 		Graphics2D g2d = (Graphics2D) g;
 		
@@ -68,17 +71,30 @@ public class GraphicPanel extends JPanel {
 		g2d.fillRect(xCoord(carx) - 10, yCoord(carx) - 10, 20, 10);
 		g2d.setColor(new Color(255, 0, 0));
 		g2d.drawLine(xCoord(carx), yCoord(carx) - 10, xCoord(carx) + (pi[result.getState().getStateNum()].ordinal() - 1) * 20, yCoord(carx) - 10);
-		g2d.drawString(Double.toString(result.getState().getVelocity()), 100, 100);
+		
+		g2d.setColor(new Color(0, 0, 0));
+		g2d.drawString(Integer.toString(stepCount), 50, 50);
+		
+		if (isStopped) {
+			g2d.drawString("Click to restart animation", 560, 300);
+		}
 	}
 	
 	public double step() {
 		result = environment.getResult(result.getState(), pi[result.getState().getStateNum()]);
+		stepCount++;
 		
 		return result.getReward();
 	}
 	
 	public void setResult(CarState s) {
 		result =  environment.getResult(s, Activity.neutral);
+		stepCount = 0;
+		isStopped = false;
+	}
+	
+	public void setStopped() {
+		isStopped = true;
 	}
 
 }

@@ -46,7 +46,7 @@ public class ExperimentManager {
 					break;
 				}
 			}
-			
+
 			double percent = (double) j / 100;
 			while (percent > 1) {
 				percent /= 2;

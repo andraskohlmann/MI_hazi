@@ -74,7 +74,7 @@ public class Visualizer extends JFrame implements ActionListener,
 		showMustGoOn = true;
 		timer.start();
 	}
-	
+
 	public void setPercent(double p) {
 		front.setPercent(p);
 	}

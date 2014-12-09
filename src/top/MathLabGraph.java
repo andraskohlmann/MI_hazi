@@ -112,7 +112,9 @@ public class MathLabGraph {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				nextFigure();
+				if (i != CarState.maxState() - 1) {
+					nextFigure();
+				}
 			}
 		}
 	}

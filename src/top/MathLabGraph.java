@@ -1,19 +1,16 @@
 package top;
 
-import environment.CarState;
 import matlabcontrol.MatlabConnectionException;
 import matlabcontrol.MatlabInvocationException;
 import matlabcontrol.MatlabProxy;
 import matlabcontrol.MatlabProxyFactory;
 import matlabcontrol.MatlabProxyFactoryOptions;
-import matlabcontrol.extensions.MatlabNumericArray;
 import matlabcontrol.extensions.MatlabTypeConverter;
+import environment.CarState;
 
 public class MathLabGraph {
 
 	private static MatlabProxy proxy = null;
-	private static MatlabTypeConverter processor;
-	
 	private static int figurenum = 1;
 	private static int datanum = 0;
 
@@ -24,7 +21,7 @@ public class MathLabGraph {
 				.build();
 		MatlabProxyFactory factory = new MatlabProxyFactory(opts);
 		
-		processor = new MatlabTypeConverter(proxy);
+		new MatlabTypeConverter(proxy);
 
 		try {
 			proxy = factory.getProxy();
@@ -47,7 +44,6 @@ public class MathLabGraph {
 	}
 	
 	public static void nextFigure() {
-//		System.out.println("mivaan??");
 		figurenum++;
 		try {
 			proxy.eval("figure(" + figurenum + ")");
@@ -67,21 +63,9 @@ public class MathLabGraph {
 				sb.append(", ");
 			}
 		}
-		sb.append("];");// \nplot(data");
-//		sb.append(datanum);
-//		sb.append("), hold on");
-		
-		
-//		double[][] data2D = new double[data.length][1];
-//		for (int i = 0; i < data.length; i++) {
-//			data2D[i][0] = data[i];
-//		}	
+		sb.append("];");
 		
 		try {
-			// Send the array to MATLAB
-//			processor.setNumericArray("data" + datanum + "x", new MatlabNumericArray(data2D, null));
-			
-			//proxy.eval("plot(data" + datanum + "x)");
 			proxy.eval(sb.toString());
 		} catch (MatlabInvocationException e) {
 			System.err.println(e.getMessage());
@@ -123,19 +107,12 @@ public class MathLabGraph {
 					}
 				}
 				sb.append(");");
-//				System.out.println(sb.toString());
 				try {
 					proxy.eval(sb.toString());
 				} catch (MatlabInvocationException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-//				try {
-//					proxy.eval("hold off");
-//				} catch (MatlabInvocationException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
 				nextFigure();
 			}
 		}

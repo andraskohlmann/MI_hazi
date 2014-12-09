@@ -47,7 +47,11 @@ public class ExperimentManager {
 				}
 			}
 			
-			v.setPercent((double) j / 100);
+			double percent = (double) j / 100;
+			while (percent > 1) {
+				percent /= 2;
+			}
+			v.setPercent(percent);
 
 			if (i < maxIteration || j > 1000) {
 				if (i < maxIteration) {

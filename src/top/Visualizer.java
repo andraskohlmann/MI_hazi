@@ -31,6 +31,7 @@ public class Visualizer extends JFrame implements ActionListener,
 	private CardLayout layout;
 
 	private boolean started;
+	private boolean showMustGoOn;
 
 	Visualizer(Environment e, CarState s) {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -43,6 +44,7 @@ public class Visualizer extends JFrame implements ActionListener,
 		addWindowListener(this);
 
 		started = false;
+		showMustGoOn = false;
 
 		panel = new JPanel();
 
@@ -69,6 +71,7 @@ public class Visualizer extends JFrame implements ActionListener,
 		gfx.setPi(p);
 
 		layout.show(panel, "show");
+		showMustGoOn = true;
 		timer.start();
 	}
 	
@@ -78,7 +81,7 @@ public class Visualizer extends JFrame implements ActionListener,
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		if (arg0.getActionCommand() == null) {
+		if (arg0.getActionCommand() == null && timer.equals(arg0.getSource())) {
 			stepCount++;
 			if (gfx.step() == 1 || stepCount > 1000) {
 				timer.stop();
@@ -98,12 +101,14 @@ public class Visualizer extends JFrame implements ActionListener,
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		stepCount = 0;
-		gfx.setResult(start);
+		if (showMustGoOn) {
+			stepCount = 0;
+			gfx.setResult(start);
 
-		if (timer == null) {
-			timer = new Timer(50, this);
-			timer.start();
+			if (timer == null) {
+				timer = new Timer(50, this);
+				timer.start();
+			}
 		}
 	}
 

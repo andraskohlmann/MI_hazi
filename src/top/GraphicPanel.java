@@ -23,9 +23,9 @@ public class GraphicPanel extends JPanel {
 	private Result result;
 	private int stepCount;
 	private Activity[] pi;
-	
+
 	private boolean isStopped;
-	
+
 	private int[] xs;
 	private int[] ys;
 
@@ -38,7 +38,7 @@ public class GraphicPanel extends JPanel {
 		result = environment.getResult(s, Activity.neutral);
 
 		// state = result.getState();
-		
+
 		xs = new int[resolution];
 		ys = new int[resolution];
 		for (int i = 0; i < resolution; i++) {
@@ -59,9 +59,9 @@ public class GraphicPanel extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		g.clearRect(0, 0, 1260, 720);
-		
+
 		Graphics2D g2d = (Graphics2D) g;
-		
+
 		BasicStroke bs = new BasicStroke(2);
 		g2d.setStroke(bs);
 		g2d.drawPolyline(xs, ys, resolution);
@@ -69,33 +69,36 @@ public class GraphicPanel extends JPanel {
 		double carx = result.getState().getPosition();
 		g2d.fillRect(xCoord(carx) - 10, yCoord(carx) - 10, 20, 10);
 		g2d.setColor(new Color(255, 0, 0));
-		g2d.drawLine(xCoord(carx), yCoord(carx) - 10, xCoord(carx) + (pi[result.getState().getStateNum()].ordinal() - 1) * 20, yCoord(carx) - 10);
-		
+		g2d.drawLine(xCoord(carx), yCoord(carx) - 10, xCoord(carx)
+				+ (pi[result.getState().getStateNum()].ordinal() - 1) * 20,
+				yCoord(carx) - 10);
+
 		g2d.setColor(new Color(0, 0, 0));
 		g2d.drawString(Integer.toString(stepCount), 50, 50);
-		
+
 		if (isStopped) {
 			g2d.drawString("Click to restart animation", 560, 300);
 		}
 	}
-	
+
 	public double step() {
-		result = environment.getResult(result.getState(), pi[result.getState().getStateNum()]);
+		result = environment.getResult(result.getState(), pi[result.getState()
+				.getStateNum()]);
 		stepCount++;
-		
+
 		return result.getReward();
 	}
-	
+
 	public void setPi(Activity[] p) {
 		pi = p;
 	}
-	
+
 	public void setResult(CarState s) {
-		result =  environment.getResult(s, Activity.neutral);
+		result = environment.getResult(s, Activity.neutral);
 		stepCount = 0;
 		isStopped = false;
 	}
-	
+
 	public void setStopped() {
 		isStopped = true;
 	}

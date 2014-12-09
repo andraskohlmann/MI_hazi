@@ -21,7 +21,7 @@ public class ADPIntelligence {
 	private static int[][][] Nsas = new int[CarState.maxState()][3][CarState
 			.maxState()];
 
-	//private static double[] U = new double[CarState.maxState()];
+	// private static double[] U = new double[CarState.maxState()];
 	private double[] U;
 	private double[][] Us;
 	private double[][] Uk;
@@ -62,7 +62,7 @@ public class ADPIntelligence {
 					/ Nsa[previousState.getStateNum()][previousActivity
 							.ordinal()];
 		}
-		
+
 		for (int k = 0; k < kmax; k++) {
 			double[] Unext = new double[CarState.maxState()];
 			for (int i = 0; i < CarState.maxState(); i++) {
@@ -77,7 +77,7 @@ public class ADPIntelligence {
 		}
 
 		Uk[kmax] = U;
-		
+
 		Us[unum++] = U;
 
 		previousState = result.getState();
@@ -85,19 +85,19 @@ public class ADPIntelligence {
 
 		return pi[stateNum];
 	}
-	
+
 	public double[][] getUs() {
 		return Us;
 	}
-	
+
 	public double[][] getUk() {
 		return Uk;
 	}
-	
+
 	public double[] getU() {
 		return U;
 	}
-	
+
 	public static Activity int2Activity(int a) {
 		return a == 0 ? Activity.reverse : (a == 1 ? Activity.neutral
 				: Activity.forward);
@@ -129,15 +129,15 @@ public class ADPIntelligence {
 
 		return nextPi;
 	}
-	
+
 	public static Activity[] startPi() {
 		Activity[] pi = new Activity[CarState.maxState()];
-		
+
 		Random r = new Random();
 		for (int i = 0; i < CarState.maxState(); i++) {
 			pi[i] = int2Activity(r.nextInt(3));
 		}
-		
+
 		return pi;
 	}
 

@@ -20,7 +20,7 @@ public class MathLabGraph {
 				.setHidden(true).setUsePreviouslyControlledSession(true)
 				.build();
 		MatlabProxyFactory factory = new MatlabProxyFactory(opts);
-		
+
 		new MatlabTypeConverter(proxy);
 
 		try {
@@ -28,7 +28,7 @@ public class MathLabGraph {
 		} catch (MatlabConnectionException e) {
 			System.err.println(e.getMessage());
 		}
-		
+
 		try {
 			proxy.eval("figure(1)");
 		} catch (MatlabInvocationException e) {
@@ -42,7 +42,7 @@ public class MathLabGraph {
 			proxy.disconnect();
 		}
 	}
-	
+
 	public static void nextFigure() {
 		figurenum++;
 		try {
@@ -51,7 +51,7 @@ public class MathLabGraph {
 			System.err.println(e.getMessage());
 		}
 	}
-	
+
 	public static int drawData(double[] data) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("data");
@@ -64,36 +64,35 @@ public class MathLabGraph {
 			}
 		}
 		sb.append("];");
-		
+
 		try {
 			proxy.eval(sb.toString());
 		} catch (MatlabInvocationException e) {
 			System.err.println(e.getMessage());
 		}
-		
+
 		return datanum++;
 	}
-	
+
 	public static void drawUs(double[][] Us) {
 		drawUs(Us, -1);
 	}
-	
+
 	public static void drawUs(double[][] Us, int n) {
 		int length = n == -1 ? Us.length : n;
 		int num = 0;
-		for (int i = 0; i < CarState.maxState(); i++) {	
+		for (int i = 0; i < CarState.maxState(); i++) {
 			double[] values = new double[length];
 			for (int j = 0; j < length; j++) {
 				values[j] = Us[j][i];
 			}
-			
+
 			if (i % CarState.velocityResolution == 0) {
 				num = drawData(values);
-			}
-			else {
+			} else {
 				drawData(values);
 			}
-			
+
 			if ((i + 1) % CarState.velocityResolution == 0) {
 				StringBuilder sb = new StringBuilder();
 				sb.append("plot(");

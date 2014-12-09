@@ -16,7 +16,8 @@ import environment.Activity;
 import environment.CarState;
 import environment.Environment;
 
-public class Visualizer extends JFrame implements ActionListener, MouseListener, WindowListener {
+public class Visualizer extends JFrame implements ActionListener,
+		MouseListener, WindowListener {
 
 	private static final long serialVersionUID = 1L;
 	private Timer timer;
@@ -27,7 +28,7 @@ public class Visualizer extends JFrame implements ActionListener, MouseListener,
 
 	private JPanel panel;
 	private CardLayout layout;
-	
+
 	private boolean started;
 
 	Visualizer(Environment e, CarState s) {
@@ -39,7 +40,7 @@ public class Visualizer extends JFrame implements ActionListener, MouseListener,
 
 		addMouseListener(this);
 		addWindowListener(this);
-		
+
 		started = false;
 
 		panel = new JPanel();
@@ -85,7 +86,7 @@ public class Visualizer extends JFrame implements ActionListener, MouseListener,
 				started = true;
 				new WorkerThread(this).start();
 			}
-			
+
 		}
 	}
 

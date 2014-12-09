@@ -3,9 +3,9 @@ package top;
 import environment.Activity;
 
 public class WorkerThread extends Thread {
-	
+
 	private Visualizer vis;
-	
+
 	public WorkerThread(Visualizer v) {
 		vis = v;
 	}
@@ -15,5 +15,5 @@ public class WorkerThread extends Thread {
 		Activity[] pi = ExperimentManager.experiment();
 		vis.start(pi);
 	}
-	
+
 }

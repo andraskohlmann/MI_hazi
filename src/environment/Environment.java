@@ -10,8 +10,7 @@ public class Environment {
 	private static final double gravity = 0.1;
 	private static final double deltaTime = 1;
 	private static final double accelerationRatio = 0.04;
-	
-	
+
 	public Result getResult(CarState state_t, Activity a) {
 		CarState state_tpp = calculateNextState(state_t, a);
 		double reward = constReward;

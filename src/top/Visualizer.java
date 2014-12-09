@@ -27,6 +27,8 @@ public class Visualizer extends JFrame implements ActionListener, MouseListener,
 
 	private JPanel panel;
 	private CardLayout layout;
+	
+	private boolean started;
 
 	Visualizer(Environment e, CarState s) {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -37,6 +39,8 @@ public class Visualizer extends JFrame implements ActionListener, MouseListener,
 
 		addMouseListener(this);
 		addWindowListener(this);
+		
+		started = false;
 
 		panel = new JPanel();
 
@@ -77,7 +81,11 @@ public class Visualizer extends JFrame implements ActionListener, MouseListener,
 
 			repaint();
 		} else if (arg0.getActionCommand().equals("start")) {
-			start(ExperimentManager.experiment());
+			if (started == false) {
+				started = true;
+				new WorkerThread(this).start();
+			}
+			
 		}
 	}
 

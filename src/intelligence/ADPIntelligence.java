@@ -105,11 +105,6 @@ public class ADPIntelligence {
 
 	public Activity[] nextPi() {
 		Activity[] nextPi = new Activity[CarState.maxState()];
-		
-//		for (int i = 0; i < CarState.maxState(); i++) {
-//			CarState s = new CarState(i);
-//			System.out.println(s.getPosition() + ", " + new DecimalFormat("#.#").format(s.getVelocity()) + ": " + U[i] + " " + (Nsanow[i][0] + Nsanow[i][1] + Nsanow[i][2]));
-//		}
 
 		for (int i = 0; i < CarState.maxState(); i++) {
 			double[] tmp = new double[3];
@@ -137,18 +132,11 @@ public class ADPIntelligence {
 	
 	public static Activity[] startPi() {
 		Activity[] pi = new Activity[CarState.maxState()];
-		//System.out.println("sikerált lefoglalni " + CarState.maxState());
 		
 		Random r = new Random();
 		for (int i = 0; i < CarState.maxState(); i++) {
 			pi[i] = int2Activity(r.nextInt(3));
-			//System.out.println("pinaa " + i);
 		}
-		
-		for (int i = 0; i < CarState.maxState(); i++) {
-			System.out.print(pi[i] + ", ");
-		}
-		System.out.println();
 		
 		return pi;
 	}

@@ -2,20 +2,11 @@ package environment;
 
 public class CarState {
 
-	// public static void main(String[] args) {
-	// CarState s = new CarState(6.2, 1);
-	// System.out.println(s.getStateNum());
-	// CarState n = new CarState(s.getStateNum());
-	// System.out.println(n.position);
-	// System.out.println(n.velocity);
-	// }
-
 	public static final double minPosition = 0;
 	public static final double maxPosition = 2 * Math.PI;
 
 	public static final double minVelocity = -0.3;
 	public static final double maxVelocity = 0.3;
-	// TODO
 
 	public static final int positionResolution = 11;
 	public static final int velocityResolution = 11;
@@ -54,9 +45,6 @@ public class CarState {
 				/ (maxVelocity - minVelocity);
 		int discreteVelocity = (int) (Math.round(normalVelocity
 				* (velocityResolution - 1)));
-
-		// System.out.println(discretePosition);
-		// System.out.println(discreteVelocity);
 
 		return discretePosition * (velocityResolution) + discreteVelocity;
 	}

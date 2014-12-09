@@ -21,8 +21,7 @@ public class Environment {
 		if (Math.abs(state_tpp.getPosition() - winstat.getPosition()) < 0.1 /*&& Math.abs(state_tpp.getVelocity() - winstat.getVelocity()) < 0.06*/) {
 			reward = winReward;
 		}
-		//double reward = Math.abs(state_tpp.getPosition()
-				//- winstat.getPosition()) < 0.2 ? winReward : constReward;
+
 		return new Result(state_tpp, reward);
 	}
 
@@ -48,8 +47,6 @@ public class Environment {
 			pos = CarState.maxPosition;
 			vel *= -0.2;
 		}
-		// pos = pos < CarState.minPosition ? CarState.minPosition : (pos >
-		// CarState.maxPosition ? CarState.maxPosition : pos);
 
 		return new CarState(pos, vel);
 	}

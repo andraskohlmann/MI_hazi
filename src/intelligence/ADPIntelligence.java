@@ -47,7 +47,7 @@ public class ADPIntelligence {
 	public Activity move(Result result) {
 		int stateNum = result.getState().getStateNum();
 
-		if (R[stateNum] == 0) {
+		if (U[stateNum] == 0) {
 			U[stateNum] = result.getReward();
 			R[stateNum] = result.getReward();
 		}

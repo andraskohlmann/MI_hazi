@@ -77,6 +77,7 @@ public class Visualizer extends JFrame implements ActionListener,
 
 	public void setPercent(double p) {
 		front.setPercent(p);
+		repaint();
 	}
 
 	@Override
@@ -93,7 +94,16 @@ public class Visualizer extends JFrame implements ActionListener,
 		} else if (arg0.getActionCommand().equals("start")) {
 			if (started == false) {
 				started = true;
-				new WorkerThread(this).start();
+				new Thread() {
+
+					@Override
+					public void run() {
+						Activity[] pi = ExperimentManager
+								.experiment(Visualizer.this);
+						Visualizer.this.start(pi);
+					}
+
+				}.start();
 			}
 
 		}

@@ -29,7 +29,6 @@ public class FrontPanel extends JPanel {
 
 	public void setPercent(double p) {
 		loading.setPercent(p);
-		loading.repaint();
 	}
 
 }

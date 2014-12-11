@@ -34,7 +34,7 @@ public class Visualizer extends JFrame implements ActionListener,
 	private boolean showMustGoOn;
 
 	Visualizer(Environment e, CarState s) {
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocation(100, 100);
 		setSize(1260, 720);
 		setTitle("Experiment Visualizer");
